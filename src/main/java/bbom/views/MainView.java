@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class MainView extends JFrame implements ActionListener {
+public class MainView extends JFrame implements ActionListener, CounterView {
     private final Controller controller;
 
     public MainView(Controller controller) {
@@ -35,13 +35,23 @@ public class MainView extends JFrame implements ActionListener {
             }
         });
 
-        log("State value: " + this.controller.getState());
+        showState(this.controller.getState());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         this.controller.updateState();
-        log("State value: " + this.controller.getState());
+        showState(this.controller.getState());
+    }
+
+    @Override
+    public void showState(int value) {
+        log("State value: " + value);
+    }
+
+    @Override
+    public void printStdIn(String value) {
+        System.out.println("You wrote in stdin: " + value);
     }
 
     private void log(String msg) {
